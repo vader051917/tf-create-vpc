@@ -9,6 +9,8 @@ jobs:
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
+            - name: Show data
+              run: ls -lRt
             - name: Install terraform
               uses: hashicorp/setup-terraform@v3
             - name: Configure aws
