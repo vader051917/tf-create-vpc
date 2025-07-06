@@ -21,4 +21,4 @@ runs:
                 aws configure set region ${{ inputs.REGION }} --profile prod_user
         - name: List buckets
           shell: bash
-        run: aws s3 ls --profile prod_user
+          run: aws s3 ls --profile prod_user
