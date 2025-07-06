@@ -1,5 +1,5 @@
 name: "Configure aws"
-
+description: "action to configure aws account"
 inputs:
     AWS_ACCESS_KEY_ID:
         description: "access key for aws account"
