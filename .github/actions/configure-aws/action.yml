@@ -17,5 +17,8 @@ runs:
           shell: bash
           run: |
                 aws configure set aws_access_key_id ${{ inputs.AWS_ACCESS_KEY_ID }} --profile prod_user
-                aws configure set aws_secret_access_key ${{ inputs.AWS_SECRET_ACCESS_KEY }} --profile prod_user
+                aws configure set aws_secret_access_key ${{ inputs.AWS_SECRET_ACCESS_KEY }} --profile v
                 aws configure set region ${{ inputs.REGION }} --profile prod_user
+        - name: List buckets
+          shell: bash
+        run: aws s3 ls --profile prod_user
