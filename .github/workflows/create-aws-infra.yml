@@ -22,6 +22,7 @@ jobs:
                 terraform init
                 terraform apply -auto-approve
             - name: Access infra
+              shell: bash
               run: |
                 chmod 400 "tf-mkp-private.pem"
                 ssh -o StrictHostKeyChecking=no -i "tf-mkp-private.pem" ubuntu@$(terraform output -raw public_ec_ip)
