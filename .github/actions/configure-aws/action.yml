@@ -16,6 +16,6 @@ runs:
         - name: Configure aws account
           shell: bash
           run: |
-                aws configure set aws_access_key_id ${{ inputs.AWS_ACCESS_KEY_ID }}
-                aws configure set aws_secret_access_key ${{ inputs.AWS_SECRET_ACCESS_KEY }}
-                aws configure set region ${{ inputs.REGION }}
+                aws configure set aws_access_key_id ${{ inputs.AWS_ACCESS_KEY_ID }} --profile prod_user
+                aws configure set aws_secret_access_key ${{ inputs.AWS_SECRET_ACCESS_KEY }} --profile prod_user
+                aws configure set region ${{ inputs.REGION }} --profile prod_user
