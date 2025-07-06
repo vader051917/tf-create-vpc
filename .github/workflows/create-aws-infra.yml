@@ -1,5 +1,5 @@
 name: Create aws infra
-on: 
+on:
     push:
 run-name: Create aws infra
 jobs:
@@ -9,8 +9,6 @@ jobs:
         steps:
             - name: Code checkout
               uses: actions/checkout@v4
-            - name: Show data
-              run: ls -lRt
             - name: Install terraform
               uses: hashicorp/setup-terraform@v3
             - name: Configure aws
@@ -23,6 +21,8 @@ jobs:
               run: |
                 terraform init
                 terraform apply -auto-approve
-            - name: Destroy infra
-              if: always()
-              run: terraform destroy -auto-approve
+            - name: Access infra
+              run: |
+                chmod 400 "tf-mkp-private.pem"
+                ssh -i "tf-mkp-private.pem" ubuntu@$(terraform output -raw public_ec_ip)
+                ls -lrt

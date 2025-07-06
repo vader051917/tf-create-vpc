@@ -16,7 +16,7 @@ resource "aws_subnet" "subnets" {
   tags = {
     Name = each.key
   }
-  map_public_ip_on_launch = each.key == "public_subnet" ? true : false
+  map_public_ip_on_launch = each.key == "public" ? true : false
   availability_zone       = var.subnet_az[each.key]
 }
 
@@ -47,7 +47,7 @@ resource "aws_route_table" "public-route" {
 
 #Associate public subnet to new route table that has route to IG
 resource "aws_route_table_association" "public-rt-assc" {
-  subnet_id      = aws_subnet.subnets["public_subnet"].id
+  subnet_id      = aws_subnet.subnets["public"].id
   route_table_id = aws_route_table.public-route.id
 }
 

@@ -19,7 +19,6 @@ terraform {
     key          = "state_files/state_files.tfstate"
     region       = "us-east-1"
     use_lockfile = true
-    profile = "prod_user"
+    profile      = "prod_user"
   }
 }
-
