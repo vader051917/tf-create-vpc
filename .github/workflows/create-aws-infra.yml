@@ -1,7 +1,6 @@
 name: Create aws infra
 on: 
     push:
-    workflow_dispatch:
 run-name: Create aws infra
 jobs:
     create-vpc-infra:
@@ -15,20 +14,15 @@ jobs:
             - name: Install terraform
               uses: hashicorp/setup-terraform@v3
             - name: Configure aws
-              shell: bash
-              run: |
-                    aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} --profile prod_user
-                    aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} --profile prod_user
-                    aws configure set region ${{ vars.REGION }} --profile prod_user
-            - name: List buckets
-              shell: bash
-              run: aws s3 ls --profile prod_user
-              # uses: ./.github/actions/configure-aws
-              # with:
-              #   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-              #   REGION: ${{ vars.REGION }}
+              uses: ./.github/actions/configure-aws
+              with:
+                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                REGION: ${{ vars.REGION }}
             - name: Create infra
               run: |
                 terraform init
                 terraform apply -auto-approve
+            - name: Destroy infra
+              if: always()
+              run: terraform destroy -auto-approve
