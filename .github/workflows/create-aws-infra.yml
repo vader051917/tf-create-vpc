@@ -1,6 +1,7 @@
 name: Create aws infra
 on: 
     push:
+    workflow_dispatch:
 run-name: Create aws infra
 jobs:
     create-vpc-infra:
