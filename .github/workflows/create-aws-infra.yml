@@ -27,6 +27,3 @@ jobs:
                 chmod 400 "tf-mkp-private.pem"
                 ssh -o StrictHostKeyChecking=no -i "tf-mkp-private.pem" ubuntu@$(terraform output -raw public_ec_ip)
                 ls -lrt
-            - name: Destory infra
-              if: always()
-              run: terraform destroy -auto-approve
