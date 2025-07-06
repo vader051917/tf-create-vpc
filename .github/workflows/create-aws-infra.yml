@@ -1,0 +1,23 @@
+name: Create aws infra
+on: 
+    push:
+run-name: Create aws infra
+jobs:
+    create-vpc-infra:
+        environment: dev
+        runs-on: ubuntu-latest
+        steps:
+            - name: Code checkout
+              uses: actions/checkout@v4
+            - name: Install terraform
+              uses: hashicorp/setup-terraform@v3
+            - name: Configure aws
+              uses: ./.github/actions/configure-aws
+              with:
+                AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                REGION: ${{ vars.REGION }}
+            - name: Create infra
+              run: |
+                terraform init
+                terraform apply -auto-approve

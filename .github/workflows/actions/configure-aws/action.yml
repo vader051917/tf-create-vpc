@@ -1,0 +1,21 @@
+name: "Configure aws"
+
+inputs:
+    AWS_ACCESS_KEY_ID:
+        description: "access key for aws account"
+        required: true
+    AWS_SECRET_ACCESS_KEY:
+        description: "secret access key for aws account"
+        required: true
+    REGION:
+        description: "region for the account"
+        required: true
+runs:
+    using: composite
+    steps:
+        - name: Configure aws account
+          shell: bash
+          run: |
+                aws configure set aws_access_key_id ${{ inputs.AWS_ACCESS_KEY_ID }}
+                aws configure set aws_secret_access_key ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+                aws configure set region ${{ inputs.REGION }}
